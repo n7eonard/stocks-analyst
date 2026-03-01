@@ -24,44 +24,49 @@ export function AnalystTabs({
   });
 
   return (
-    <div className="border-b border-border-light overflow-x-auto">
-      <div className="flex min-w-max">
-        {sortedAnalysts.map((analyst) => {
-          const result = results[analyst.key];
-          const isActive = activeTab === analyst.key;
-          const isRecommended = recommendedAnalysts.includes(analyst.key);
+    <div className="relative border-b border-border-light">
+      {/* Right fade indicator for scroll */}
+      <div className="absolute right-0 top-0 bottom-0 w-8 bg-gradient-to-l from-white to-transparent pointer-events-none z-10 lg:hidden" />
 
-          return (
-            <button
-              key={analyst.key}
-              onClick={() => onTabChange(analyst.key)}
-              className={`relative flex items-center gap-1.5 px-4 py-3 text-sm whitespace-nowrap border-b-2 transition-colors ${
-                isActive
-                  ? "border-accent text-accent font-semibold"
-                  : "border-transparent text-text-secondary hover:text-text-primary hover:bg-surface-secondary"
-              }`}
-            >
-              <span>{analyst.icon}</span>
-              <span>{analyst.shortName}</span>
+      <div className="overflow-x-auto scrollbar-hide">
+        <div className="flex min-w-max">
+          {sortedAnalysts.map((analyst) => {
+            const result = results[analyst.key];
+            const isActive = activeTab === analyst.key;
+            const isRecommended = recommendedAnalysts.includes(analyst.key);
 
-              {/* Status indicator */}
-              {result?.status === "streaming" && (
-                <span className="w-2 h-2 rounded-full bg-gain animate-pulse" />
-              )}
-              {result?.status === "complete" && (
-                <span className="w-2 h-2 rounded-full bg-gain" />
-              )}
-              {result?.status === "error" && (
-                <span className="w-2 h-2 rounded-full bg-loss" />
-              )}
+            return (
+              <button
+                key={analyst.key}
+                onClick={() => onTabChange(analyst.key)}
+                className={`relative flex items-center gap-1.5 px-3 sm:px-4 py-3 text-xs sm:text-sm whitespace-nowrap border-b-2 transition-colors ${
+                  isActive
+                    ? "border-accent text-accent font-semibold"
+                    : "border-transparent text-text-secondary hover:text-text-primary hover:bg-surface-secondary"
+                }`}
+              >
+                <span>{analyst.icon}</span>
+                <span className="hidden sm:inline">{analyst.shortName}</span>
 
-              {/* Recommended badge */}
-              {isRecommended && (
-                <span className="absolute -top-0.5 -right-0.5 w-1.5 h-1.5 rounded-full bg-accent" />
-              )}
-            </button>
-          );
-        })}
+                {/* Status indicator */}
+                {result?.status === "streaming" && (
+                  <span className="w-2 h-2 rounded-full bg-gain animate-pulse" />
+                )}
+                {result?.status === "complete" && (
+                  <span className="w-2 h-2 rounded-full bg-gain" />
+                )}
+                {result?.status === "error" && (
+                  <span className="w-2 h-2 rounded-full bg-loss" />
+                )}
+
+                {/* Recommended badge */}
+                {isRecommended && (
+                  <span className="absolute -top-0.5 -right-0.5 w-1.5 h-1.5 rounded-full bg-accent" />
+                )}
+              </button>
+            );
+          })}
+        </div>
       </div>
     </div>
   );

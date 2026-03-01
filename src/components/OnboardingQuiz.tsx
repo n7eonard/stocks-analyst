@@ -28,7 +28,7 @@ export function OnboardingQuiz({
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-white">
-      <div className="w-full max-w-2xl px-6 py-8">
+      <div className="w-full max-w-2xl px-4 sm:px-6 py-6 sm:py-8">
         {/* Header */}
         <div className="flex items-center justify-between mb-8">
           <div className="flex items-center gap-2">
@@ -75,7 +75,7 @@ export function OnboardingQuiz({
         </p>
 
         {/* Question title and subtitle */}
-        <h2 className="text-2xl font-bold text-text-primary mb-1">
+        <h2 className="text-xl sm:text-2xl font-bold text-text-primary mb-1">
           {currentQuestion.question}
         </h2>
         <p className="text-text-secondary mb-8">{currentQuestion.subtitle}</p>

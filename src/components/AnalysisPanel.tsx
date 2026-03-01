@@ -24,7 +24,6 @@ export function AnalysisPanel({
   onCancelAnalysis,
 }: AnalysisPanelProps) {
   const [activeTab, setActiveTab] = useState(() => {
-    // Default to first recommended analyst, or first analyst
     return recommendedAnalysts[0] || analysts[0].key;
   });
 
@@ -35,25 +34,25 @@ export function AnalysisPanel({
   return (
     <div>
       {/* Action bar */}
-      <div className="px-6 py-4 flex items-center gap-3 border-b border-border-light">
+      <div className="px-4 sm:px-6 py-3 sm:py-4 flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-3 border-b border-border-light">
         {isAnalyzing ? (
           <button
             onClick={onCancelAnalysis}
-            className="px-5 py-2.5 bg-loss text-white rounded-card text-sm font-semibold hover:bg-red-600 transition-colors"
+            className="px-5 py-2.5 bg-loss text-white rounded-card text-sm font-semibold hover:bg-red-600 transition-colors w-full sm:w-auto"
           >
             Cancel Analysis
           </button>
         ) : (
           <button
             onClick={onRunAnalysis}
-            className="px-5 py-2.5 bg-accent text-white rounded-card text-sm font-semibold hover:bg-gray-800 transition-colors"
+            className="px-5 py-2.5 bg-accent text-white rounded-card text-sm font-semibold hover:bg-gray-800 transition-colors w-full sm:w-auto"
           >
             Run Full Analysis
           </button>
         )}
 
         {isAnalyzing && (
-          <span className="text-sm text-text-secondary">
+          <span className="text-xs sm:text-sm text-text-secondary text-center sm:text-left">
             Analyzing {ticker} with{" "}
             {Object.values(results).filter(
               (r) => r.status === "streaming"
@@ -63,7 +62,7 @@ export function AnalysisPanel({
         )}
 
         {!isAnalyzing && hasAnyResults && (
-          <span className="text-sm text-text-tertiary">
+          <span className="text-xs sm:text-sm text-text-tertiary text-center sm:text-left">
             {Object.values(results).filter((r) => r.status === "complete")
               .length}{" "}
             of {analysts.length} analyses complete

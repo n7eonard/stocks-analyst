@@ -16,7 +16,7 @@ export function AnalysisContent({
 
   if (!result || result.status === "pending") {
     return (
-      <div className="p-6 text-center text-text-tertiary">
+      <div className="p-4 sm:p-6 text-center text-text-tertiary">
         <div className="text-3xl mb-3">{analyst?.icon}</div>
         <p className="font-semibold">{analyst?.name}</p>
         <p className="text-sm mt-1">{analyst?.description}</p>
@@ -29,7 +29,7 @@ export function AnalysisContent({
 
   if (result.status === "error") {
     return (
-      <div className="p-6">
+      <div className="p-4 sm:p-6">
         <div className="p-4 bg-red-50 border border-red-200 rounded-card">
           <p className="text-sm font-semibold text-loss">Analysis Failed</p>
           <p className="text-sm text-text-secondary mt-1">
@@ -41,7 +41,7 @@ export function AnalysisContent({
   }
 
   return (
-    <div className="p-6">
+    <div className="p-4 sm:p-6">
       {/* Analyst badge */}
       <div className="flex items-center gap-2 mb-4 pb-3 border-b border-border-light">
         <span className="text-xl">{analyst?.icon}</span>

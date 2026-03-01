@@ -10,7 +10,7 @@ export function StockHeader({ ticker }: StockHeaderProps) {
   const info = tickers.find((t) => t.symbol === ticker);
 
   return (
-    <div className="p-6 border-b border-border-light">
+    <div className="p-4 sm:p-6 border-b border-border-light">
       <div className="flex items-start justify-between">
         <div>
           <h2 className="text-2xl font-bold">{ticker}</h2>

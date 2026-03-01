@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect, useMemo } from "react";
 import { searchTickers, TickerInfo } from "@/data/tickers";
 
 interface TickerSearchProps {
@@ -15,22 +15,22 @@ export function TickerSearch({
   className = "",
 }: TickerSearchProps) {
   const [query, setQuery] = useState("");
-  const [results, setResults] = useState<TickerInfo[]>([]);
   const [isOpen, setIsOpen] = useState(false);
   const [highlightedIndex, setHighlightedIndex] = useState(0);
   const inputRef = useRef<HTMLInputElement>(null);
   const dropdownRef = useRef<HTMLDivElement>(null);
 
-  useEffect(() => {
-    if (query.length > 0) {
-      setResults(searchTickers(query));
-      setIsOpen(true);
-      setHighlightedIndex(0);
-    } else {
-      setResults([]);
-      setIsOpen(false);
-    }
-  }, [query]);
+  // Derive results synchronously from query — no useEffect needed
+  const results: TickerInfo[] = useMemo(
+    () => (query.length > 0 ? searchTickers(query) : []),
+    [query]
+  );
+
+  function handleQueryChange(newQuery: string) {
+    setQuery(newQuery);
+    setIsOpen(newQuery.length > 0);
+    setHighlightedIndex(0);
+  }
 
   useEffect(() => {
     function handleClickOutside(e: MouseEvent) {
@@ -75,7 +75,7 @@ export function TickerSearch({
         ref={inputRef}
         type="text"
         value={query}
-        onChange={(e) => setQuery(e.target.value)}
+        onChange={(e) => handleQueryChange(e.target.value)}
         onKeyDown={handleKeyDown}
         onFocus={() => query.length > 0 && setIsOpen(true)}
         placeholder={placeholder}
